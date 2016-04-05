@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>When should we go to the farm?</title>
+  <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+    function redoDate() {
+      var ms_in_day = 86400000;
+      var start = Date.parse("2016-04-30");
+      var offset = 7 * Math.floor(Math.random() * ( (31+30+31+31) / 7 ));
+      var farm_weekend_start = new Date(start + (offset-1) * ms_in_day);
+      var farm_weekend_finish = new Date(start + (offset+1) * ms_in_day);
+      var sentence = "";
+      if(farm_weekend_start.getMonth() != farm_weekend_finish.getMonth()) {
+        sentence = farm_weekend_start.getDate() + " " + mS[farm_weekend_start.getMonth()] + " to " + farm_weekend_finish.getDate()+ " " + mS[farm_weekend_finish.getMonth()]
+      } else {
+        sentence = farm_weekend_start.getDate() + " to " + farm_weekend_finish.getDate()+ " " + mS[farm_weekend_finish.getMonth()]
+      }
+
+      $('#farmDate').text(sentence);
+    }
+    $(document).ready(function(){
+      $('#redoDate').click(function(el){
+        redoDate();
+      });
+      redoDate();
+    });
+  </script>
+</head>
+<body>
+  <h1>Date for the farm is: <span id="farmDate"></span></h1>
+  <button id="redoDate">I want another date</button>
+</body>
+</html>
